@@ -1,4 +1,4 @@
-class Product {
+class ProductModel {
   int? id;
   String? title;
   String? description;
@@ -22,7 +22,7 @@ class Product {
   List<String>? images;
   String? thumbnail;
 
-  Product(
+  ProductModel(
       {this.id,
       this.title,
       this.description,
@@ -46,21 +46,21 @@ class Product {
       this.images,
       this.thumbnail});
 
-  Product.fromJson(Map<String, dynamic> json) {
+  ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     description = json['description'];
     category = json['category'];
-    price = json['price'];
-    discountPercentage = json['discountPercentage'];
-    rating = json['rating'];
+    price = (json['price'] as num?)?.toDouble();
+    discountPercentage = (json['discountPercentage'] as num?)?.toDouble();
+    rating = (json['rating'] as num?)?.toDouble();
     stock = json['stock'];
-    tags = json['tags'].cast<String>();
+    tags = json['tags']?.cast<String>();
     brand = json['brand'];
     sku = json['sku'];
     weight = json['weight'];
     dimensions = json['dimensions'] != null
-        ? new Dimensions.fromJson(json['dimensions'])
+        ? Dimensions.fromJson(json['dimensions'])
         : null;
     warrantyInformation = json['warrantyInformation'];
     shippingInformation = json['shippingInformation'];
@@ -68,13 +68,13 @@ class Product {
     if (json['reviews'] != null) {
       reviews = <Reviews>[];
       json['reviews'].forEach((v) {
-        reviews!.add(new Reviews.fromJson(v));
+        reviews!.add(Reviews.fromJson(v));
       });
     }
     returnPolicy = json['returnPolicy'];
     minimumOrderQuantity = json['minimumOrderQuantity'];
-    meta = json['meta'] != null ? new Meta.fromJson(json['meta']) : null;
-    images = json['images'].cast<String>();
+    meta = json['meta'] != null ? Meta.fromJson(json['meta']) : null;
+    images = json['images']?.cast<String>();
     thumbnail = json['thumbnail'];
   }
 
@@ -120,9 +120,9 @@ class Dimensions {
   Dimensions({this.width, this.height, this.depth});
 
   Dimensions.fromJson(Map<String, dynamic> json) {
-    width = json['width'];
-    height = json['height'];
-    depth = json['depth'];
+    width = (json['width'] as num?)?.toDouble();
+    height = (json['height'] as num?)?.toDouble();
+    depth = (json['depth'] as num?)?.toDouble();
   }
 
   Map<String, dynamic> toJson() {

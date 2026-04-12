@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:mytasks/core/services/service_locator.dart';
 import 'package:mytasks/core/utils/app_colors/app_colors.dart';
+import 'package:mytasks/features/products/presentation/bloc/product_bloc.dart';
 import 'package:mytasks/features/products/presentation/pages/products_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -13,13 +16,16 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
+@override
   void initState() {
     super.initState();
     Timer(const Duration(seconds: 5), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const ProductsScreen()),
-      );
+      if (mounted) {
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const ProductsScreen()),
+        );
+      }
     });
   }
 
