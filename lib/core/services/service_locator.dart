@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:mytasks/features/cart/presentation/bloc/cart%20bloc.dart';
 import 'package:mytasks/features/products/data/datasources/ProductRemoteDataSource.dart';
 import 'package:mytasks/features/products/data/repositories/ProductRepositoryImpl.dart';
 import 'package:mytasks/features/products/domain/repositories/ProductRepository.dart';
@@ -22,6 +23,7 @@ Future<void> init() async {
     () => ProductRepositoryImpl(remoteDataSource: sl()),
   );
 
+sl.registerFactory(() => CartBloc());
   // Data sources
   sl.registerLazySingleton<ProductRemoteDataSource>(
     () => ProductRemoteDataSourceImpl(sl()),

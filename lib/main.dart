@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mytasks/core/services/service_locator.dart';
+import 'package:mytasks/features/cart/presentation/bloc/cart%20bloc.dart';
 import 'package:mytasks/features/products/presentation/bloc/product_bloc.dart';
 import 'package:mytasks/features/splash/presentation/pages/splash_screen.dart';
 
@@ -15,13 +16,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<ProductBloc>(),
-      child: MaterialApp(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => sl<ProductBloc>(),
+        ),
+        BlocProvider(
+          create: (context) => sl<CartBloc>(),
+        ),
+      ],
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const SplashScreen(),
+        home: SplashScreen(),
       ),
     );
   }
 }
-

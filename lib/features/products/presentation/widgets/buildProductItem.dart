@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mytasks/core/utils/app_colors/app_colors.dart';
+import 'package:mytasks/features/cart/presentation/bloc/cart%20bloc.dart';
+import 'package:mytasks/features/cart/presentation/bloc/cart_event.dart';
 import 'package:mytasks/features/products/domain/entities/productEntity.dart';
 
 class ProductItem extends StatelessWidget {
@@ -93,24 +96,54 @@ class ProductItem extends StatelessWidget {
                     ),
                   ),
 
-                 
-      
                 ],
               ),
-              
-              Positioned(
-                bottom: -5,
-                right: -5,
-                child: CircleAvatar(
-                  backgroundColor: AppColors.black,
-                  child: IconButton(
-                    icon: const Icon(Icons.add_shopping_cart, color: Colors.white),
-                    onPressed: () {
-                      
-                    },
-                  ),
-                ),
-              ),
+  Positioned(
+  bottom: 0,
+  right: 0,
+  child: InkWell(
+    onTap: () {
+      context.read<CartBloc>().add(AddToCartEvent(product));
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("${product.title} added to cart!"),
+          duration: const Duration(seconds: 1),
+          backgroundColor: AppColors.grey, 
+        ),
+      );
+    },
+    borderRadius: const BorderRadius.only(
+      topLeft: Radius.circular(15),
+      bottomRight: Radius.circular(20),
+    ),
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: const BoxDecoration(
+        color: AppColors.black,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+      child: const Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.add, color: Colors.white, size: 18),
+          SizedBox(width: 5),
+          Text(
+            "Add",
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    ),
+  ),
+)
             ],
           ),
         ),
