@@ -12,24 +12,25 @@ final sl = GetIt.instance;
 Future<void> init() async {
 
 
-
+ 
   sl.registerFactory(() => ProductBloc(getProductsUseCase: sl()));
 
-  // Use cases
+  sl.registerFactory(() => CartBloc());
+
+
+
   sl.registerLazySingleton(() => GetProductsUseCase(sl()));
 
-  // Repository
   sl.registerLazySingleton<ProductRepository>(
     () => ProductRepositoryImpl(remoteDataSource: sl()),
   );
 
-sl.registerFactory(() => CartBloc());
-  // Data sources
+
+
   sl.registerLazySingleton<ProductRemoteDataSource>(
     () => ProductRemoteDataSourceImpl(sl()),
   );
 
-  // Dio with configuration
   sl.registerLazySingleton(() {
     final dio = Dio(
       BaseOptions(

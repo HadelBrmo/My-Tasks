@@ -1,33 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mytasks/core/routing/AppRouter.dart';
 import 'package:mytasks/core/services/service_locator.dart';
 import 'package:mytasks/features/cart/presentation/bloc/cart%20bloc.dart';
 import 'package:mytasks/features/products/presentation/bloc/product_bloc.dart';
-import 'package:mytasks/features/splash/presentation/pages/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await init();
-  runApp(const MyApp());
+  await init(); 
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final AppRouter _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => sl<ProductBloc>(),
-        ),
-        BlocProvider(
           create: (context) => sl<CartBloc>(),
         ),
+        BlocProvider(
+          create: (context) => sl<ProductBloc>(),
+        ),
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        onGenerateRoute: _appRouter.onGenerateRoute,
+        initialRoute: '/',
       ),
     );
   }

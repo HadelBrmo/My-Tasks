@@ -42,10 +42,10 @@ class ProductItem extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-    flex: 3,
-    child: ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: Image.network(
+             flex: 3,
+             child: ClipRRect(
+             borderRadius: BorderRadius.circular(10),
+             child: Image.network(
         product.image,
         height: 100,
         fit: BoxFit.cover,
