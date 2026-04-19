@@ -12,6 +12,8 @@ import 'package:mytasks/features/products/presentation/bloc/product_event.dart';
 import 'package:mytasks/features/products/presentation/bloc/product_state.dart';
 import 'package:mytasks/features/products/presentation/widgets/buildProductItem.dart';
 
+import '../../../../core/network/socket_service.dart';
+
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
 
@@ -27,6 +29,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
     super.initState();
     context.read<ProductBloc>().add(GetProductsEvent());
   }
+
+
+
 
   late final List<Widget> _pages = [
     _buildHomeScreen(),
