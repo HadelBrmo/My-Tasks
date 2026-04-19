@@ -19,5 +19,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         (products) => emit(ProductLoaded(products: products)),
       );
     });
+
+
   }
 }

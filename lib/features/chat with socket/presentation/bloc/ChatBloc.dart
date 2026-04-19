@@ -7,7 +7,7 @@ import 'ChatState.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc() : super(ChatState(messages: [
-    ChatMessage(text: "مرحباً، أنا رسالة تجريبية!", isMe: false, timestamp: DateTime.now()),
+    ChatMessage(text: "مرحباً,نشكرك على تواصلك معنا ,سيتم  التواصل معك باقرب وقت ممكن", isMe: false, timestamp: DateTime.now()),
   ]))  {
 
     //تابع استقبال الرسائل

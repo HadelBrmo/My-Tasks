@@ -13,6 +13,7 @@ import 'package:mytasks/features/products/presentation/bloc/product_state.dart';
 import 'package:mytasks/features/products/presentation/widgets/buildProductItem.dart';
 
 import '../../../../core/network/socket_service.dart';
+import '../../../chat with chatGPT/presentation/pages/chatgpt_screen.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
@@ -36,8 +37,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
   late final List<Widget> _pages = [
     _buildHomeScreen(),
     MapScreen(),
-    const CartScreen(), 
-    const Center(child: Text("Profile Page")),
+     CartScreen(),
+     ChatgptScreen(),
   ];
 
   @override
@@ -45,7 +46,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     return Scaffold(
       appBar: AppBar(
 
-        title: Text(_selectedIndex == 0 ? "All Products" : (_selectedIndex == 1 ? "Map Location" : "Cart"),
+        title: Text(_selectedIndex == 0 ? "All Products" : (_selectedIndex == 1 ? "Map Location" :(_selectedIndex == 2) ?  "Cart":"ChatGPT"),
         style: TextStyle(
           color: AppColors.white,
           fontWeight: FontWeight.bold,
@@ -207,8 +208,8 @@ actions: [
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: 'Home'),
               BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
-              BottomNavigationBarItem(icon: Icon(Icons.shopping_bag_outlined), label: 'Cart'),
-              BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: 'Profile'),
+              BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Cart'),
+              BottomNavigationBarItem(icon: Icon(Icons.mark_chat_unread_rounded), label: 'chatgpt'),
             ],
           ),
         ),
