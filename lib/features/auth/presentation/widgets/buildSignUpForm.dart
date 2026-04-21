@@ -2,13 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mytasks/features/products/presentation/pages/products_screen.dart';
 
+import 'buildSocialIconFromAsset.dart';
+
 Widget buildSignUpForm(BuildContext context){
   return SingleChildScrollView(
     child: Column(
       children: [
-        SizedBox(height: 40),
+
         TextField(decoration: InputDecoration(
-          fillColor: Colors.grey[200],
+            fillColor: Colors.grey[200],
             filled: true,
             border: OutlineInputBorder(),
             labelText: "Full Name")),
@@ -30,7 +32,7 @@ Widget buildSignUpForm(BuildContext context){
             filled: true,
             border: OutlineInputBorder(),
             labelText: "Confirm Password")),
-        SizedBox(height: 60),
+        SizedBox(height: 40),
         ElevatedButton(
             style: ElevatedButton.styleFrom(backgroundColor: Colors.green, minimumSize: Size(double.infinity, 50)),
             onPressed: () {
@@ -41,7 +43,62 @@ Widget buildSignUpForm(BuildContext context){
             },
             child: Text("Sign up", style: TextStyle(color: Colors.white))
         ),
+        SizedBox(height: 30),
+        Text(
+          "____________________OR_____________________",
+          style: TextStyle(color: Colors.black, fontSize: 17,fontWeight: FontWeight.bold,),
+        ),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildSocialIconFromAsset(
+              assetPath: 'assets/icons/facebook.png',
+              onTap: () {
+              },
+            ),
+            SizedBox(width: 30),
+
+            buildSocialIconFromAsset(
+              assetPath: 'assets/icons/google-plus.png',
+              onTap: () {
+              },
+            ),
+
+            SizedBox(width: 30),
+            buildSocialIconFromAsset(
+              assetPath: 'assets/icons/twitter.png',
+              onTap: () {
+              },
+            ),
+          ],
+        ),
+
+        SizedBox(height: 40),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "Already have an account? ",
+              style: TextStyle(color: Colors.grey[600]),
+            ),
+            GestureDetector(
+              onTap: () {
+              },
+              child: Text(
+                "Sign In",
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        SizedBox(height: 20),
       ],
     ),
   );
 }
+
