@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/network/socket_service.dart';
+import '../../../../core/services/socket_service.dart';
 import '../../../../core/utils/app_colors/app_colors.dart';
 import '../../data/models/ChatMessage.dart';
 import '../bloc/ChatBloc.dart';

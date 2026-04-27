@@ -12,8 +12,9 @@ import 'package:mytasks/features/products/presentation/bloc/product_event.dart';
 import 'package:mytasks/features/products/presentation/bloc/product_state.dart';
 import 'package:mytasks/features/products/presentation/widgets/buildProductItem.dart';
 
-import '../../../../core/network/socket_service.dart';
+import '../../../../core/services/socket_service.dart';
 import '../../../chat with chatGPT/presentation/pages/chatgpt_screen.dart';
+import '../../../videoCall/presentation/pages/videoCall_screen.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
@@ -38,7 +39,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     _buildHomeScreen(),
     MapScreen(),
      CartScreen(),
-     ChatgptScreen(),
+    ChatgptScreen(),
   ];
 
   @override
@@ -72,111 +73,24 @@ class _ProductsScreenState extends State<ProductsScreen> {
 actions: [
 
   Padding(
-
     padding: const EdgeInsets.only(right: 16.0, top: 8.0),
+    child: IconButton(
+      onPressed: () {
+        String myRoomId = "order_123_abc";
 
-    child: BlocBuilder<CartBloc, CartState>(
-
-      builder: (context, state) {
-
-        int count = 0;
-
-        List<CartItemEntity> items = [];
-
-
-
-        if (state is CartUpdated) {
-
-          count = state.cartItems.length;
-
-          items = state.cartItems;
-
-        }
-
-
-
-        return GestureDetector(
-
-          onTap: () {
-
-            if (items.isEmpty) {
-
-              ScaffoldMessenger.of(context).showSnackBar(
-
-                const SnackBar(content: Text("السلة فارغة حالياً")),
-
-              );
-
-            } else {
-
-              Navigator.push( context,
-
-               MaterialPageRoute(builder: (context) => const CartScreen()),
-
-  );
-
-            }
-
-          },
-
-          child: Stack(
-
-            alignment: Alignment.center,
-
-            children: [
-
-              const Icon(Icons.shopping_cart_outlined, color: Colors.white, size: 28),
-
-              if (count > 0)
-
-                Positioned(
-
-                  top: -3,
-
-                  right: 0,
-
-                  child: Container(
-
-                    padding: const EdgeInsets.all(2),
-
-                    decoration: BoxDecoration(
-
-                      color: Colors.red,
-
-                      borderRadius: BorderRadius.circular(10),
-
-                      border: Border.all(color: Colors.black, width: 1.5),
-
-                    ),
-
-                    constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
-
-                    child: Text(
-
-                      '$count',
-
-                      style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
-
-                      textAlign: TextAlign.center,
-
-                    ),
-
-                  ),
-
-                ),
-
-            ],
-
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VideoCallScreen(roomId: myRoomId),
           ),
-
         );
-
       },
-
+      icon: const Icon(
+        Icons.video_camera_back_rounded,
+        color: Colors.white,
+      ),
     ),
-
   ),
-
 ],
 
     ),

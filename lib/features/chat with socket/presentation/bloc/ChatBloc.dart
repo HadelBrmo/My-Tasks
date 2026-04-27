@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/network/socket_service.dart';
+import '../../../../core/services/socket_service.dart';
 import '../../data/models/ChatMessage.dart';
 import 'ChatEvent.dart';
 import 'ChatState.dart';

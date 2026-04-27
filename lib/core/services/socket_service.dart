@@ -43,4 +43,13 @@ class SocketService {
       onMessage(data);
     });
   }
+
+
+  void emit(String event, dynamic data) {
+    socket.emit(event, data);
+  }
+
+  void on(String event, Function(dynamic) callback) {
+    socket.on(event, callback);
+  }
 }
