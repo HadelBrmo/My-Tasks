@@ -7,6 +7,8 @@ import 'package:mytasks/features/products/presentation/bloc/product_bloc.dart';
 import 'package:mytasks/features/products/presentation/pages/products_screen.dart';
 import 'package:mytasks/features/splash/presentation/pages/splash_screen.dart';
 
+import '../../features/fruits with Masonry Layout/presentation/pages/fruitScreen.dart';
+
 class AppRouter {
   final CartBloc _cartBloc = sl<CartBloc>();
 
@@ -14,7 +16,7 @@ Route? onGenerateRoute(RouteSettings settings) {
   switch (settings.name) {
     case '/':
       return MaterialPageRoute(
-        builder: (_) => const SplashScreen(),
+        builder: (_) =>  FruitScreen(),
       );
     case '/products':
   return MaterialPageRoute(
