@@ -1,37 +1,57 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mytasks/core/routing/AppRouter.dart';
-import 'package:mytasks/core/services/service_locator.dart';
-import 'package:mytasks/features/cart/presentation/bloc/cart%20bloc.dart';
-import 'package:mytasks/features/products/presentation/bloc/product_bloc.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await init(); 
-  runApp(MyApp());
+import 'features/Telegram/data/datasources/chatRemoteDataSource.dart';
+import 'features/Telegram/data/repository/chatRepositoryImpl.dart';
+import 'features/Telegram/domain/usecases/deleteChatUseCase.dart';
+import 'features/Telegram/domain/usecases/getChatsUseCase.dart';
+import 'features/Telegram/domain/usecases/searchChatsUseCase.dart';
+import 'features/Telegram/presentation/bloc/chatBloc/blocEvent.dart';
+import 'features/Telegram/presentation/bloc/chatBloc/chatBloc.dart';
+import 'features/Telegram/presentation/pages/telegram_screen.dart';
+
+void main() {
+  final remoteDataSource = ChatRemoteDataSourceImpl();
+  final repository = ChatRepositoryImpl(remoteDataSource: remoteDataSource);
+
+  final getChatsUseCase = GetChatsUseCase(repository);
+  final deleteChatUseCase = DeleteChatUseCase(repository);
+  final searchChatsUseCase = SearchChatsUseCase(repository);
+
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<ChatBloc>(
+          create: (context) => ChatBloc(
+            getChatsUseCase: getChatsUseCase,
+            deleteChatUseCase: deleteChatUseCase,
+            searchChatsUseCase: searchChatsUseCase,
+          )..add(LoadChatsEvent()),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
-
-  final AppRouter _appRouter = AppRouter();
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => sl<CartBloc>(),
-        ),
-        BlocProvider(
-          create: (context) => sl<ProductBloc>(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        onGenerateRoute: _appRouter.onGenerateRoute,
-        initialRoute: '/',
-      ),
+    final isPlatformDark = WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+    final initTheme = isPlatformDark ? ThemeData.dark() : ThemeData.light();
+
+    return ThemeProvider(
+      initTheme: initTheme,
+      builder: (_, theme) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: theme,
+          home: ChatListScreen(),
+        );
+      },
     );
   }
 }
