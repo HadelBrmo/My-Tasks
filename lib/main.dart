@@ -1,6 +1,8 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mytasks/features/extract%20Text%20From%20Image/presentation/pages/ocrScreen.dart';
+import 'package:mytasks/features/extract%20Text%20From%20Image/presentation/bloc/ocrBloc.dart';
 
 import 'features/Telegram/data/datasources/chatRemoteDataSource.dart';
 import 'features/Telegram/data/repository/chatRepositoryImpl.dart';
@@ -28,6 +30,9 @@ void main() {
             deleteChatUseCase: deleteChatUseCase,
             searchChatsUseCase: searchChatsUseCase,
           )..add(LoadChatsEvent()),
+        ),
+        BlocProvider<OcrBloc>(
+          create: (context) => OcrBloc(),
         ),
       ],
       child: const MyApp(),
