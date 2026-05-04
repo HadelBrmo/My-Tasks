@@ -8,7 +8,7 @@ class OcrScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("استخراج النص من الصور")),
+      appBar: AppBar(title: Text( " استخراج النص من الصورة")),
       body: BlocConsumer<OcrBloc, OcrState>(
         listener: (context, state) {
           if (state is OcrFailure) {
